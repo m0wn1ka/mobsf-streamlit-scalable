@@ -25,7 +25,7 @@ def upload_file():
     headers = {'Content-Type': multipart_data.content_type, 'Authorization': APIKEY}
     response = requests.post(SERVER + '/api/v1/upload', data=multipart_data, headers=headers)
     
-    print("respojse from mobsf is ",response.text)
+    
     return response.text, response.status_code
 @app.route('/api/v1/scan/<hash>', methods=['GET','POST'])
 def scan_file(hash):
@@ -41,7 +41,7 @@ def json_report():
     headers = {'Authorization': APIKEY}
     response = requests.post(SERVER + '/api/v1/report_json', data={"hash":hash}, headers=headers)
     
-    print("respojse from mobsf is ",response.text)
+    
     return response.text, response.status_code
 
 
