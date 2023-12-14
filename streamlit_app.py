@@ -24,7 +24,35 @@ if st.button("Upload"):
             if response.status_code == 200:
                 st.write("Upload completed successfully.")
                 resp = json.loads(response.text)
-                st.write("uploaded succeded "+response.text)
+                st.write("uploaded succeded  "+response.text)
             else:
                 st.write(f"Upload failed: {response.text}")
-    
+                st.stop()
+            # st.write("analysing")
+            # headers = {'Content-Type': 'application/json'}
+            # hash=json.loads(response.text)['hash']
+            # scan_response = requests.get(f'{SERVER_URL}/api/v1/scan/{hash}', headers=headers) 
+            # if scan_response.status_code == 200:
+            #     st.write("scannign is done")
+            # else:
+            #     st.write("scanning fialied")
+            st.write("scanning")
+            headers = {'Content-Type': 'application/json'}
+            hash=json.loads(response.text)['hash']
+            st.write("used hash is "+hash)
+            url=SERVER_URL+"/api/v1/report_jsonn"
+            scan_response = requests.post(url,json={"hash":hash}, headers=headers) 
+            st.write(scan_response.text)
+            #st.write(scan_response)
+            if scan_response.status_code == 200:
+                st.write("scannign is done")
+                # file_name="json_reports"+uploaded_file.name+".josn"
+                # out_file = open("filname", "w") 
+  
+                # json.dump(scan_response, out_file, indent = 6) 
+  
+                # out_file.close()
+            else:
+                st.write("scanningfds fialied")
+                
+              

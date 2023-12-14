@@ -27,7 +27,23 @@ def upload_file():
     
     print("respojse from mobsf is ",response.text)
     return response.text, response.status_code
+@app.route('/api/v1/scan/<hash>', methods=['GET','POST'])
+def scan_file(hash):
+    post_dict = str(f'hash={hash}')
+    headers = {'Authorization': APIKEY}
+    response = requests.post(SERVER + '/api/v1/scan', data={'hash': hash}, headers=headers)
+    return response.text, response.status_code
+
+
+@app.route('/api/v1/report_jsonn', methods=['GET','POST'])
+def json_report():
+    hash=request.json.get('hash')
+    headers = {'Authorization': APIKEY}
+    response = requests.post(SERVER + '/api/v1/report_json', data={"hash":hash}, headers=headers)
     
+    print("respojse from mobsf is ",response.text)
+    return response.text, response.status_code
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
