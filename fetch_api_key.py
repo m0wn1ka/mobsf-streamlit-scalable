@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def fetch_api():
     # Specify the URL of the API documentation page
-    url = 'http://127.0.0.1:8888/api_docs'  # Replace with the actual URL
+    url = 'http://127.0.0.1:9999/api_docs'  # Replace with the actual URL
 
     try:
         # Send an HTTP GET request to the page

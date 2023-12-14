@@ -5,7 +5,7 @@ import docker
 def run_all_apps(is_running: bool):
     # Run MobSf dcoker container.
     if is_running == False:
-        mobsf_command = ['docker', 'run', '-it', '-p', '8888:8888', 'opensecurity/mobile-security-framework-mobsf:latest']
+        mobsf_command = ['docker', 'run', '-it', '-p', '9999:9999', 'opensecurity/mobile-security-framework-mobsf:latest']
         mobsf_process = subprocess.Popen(mobsf_command)
         time.sleep(30)
         
@@ -54,6 +54,6 @@ def is_container_running(container_name: str):
 
 
 if __name__ == '__main__':
-    container_name = "opensecurity/mobile-security-framework-mobsf:latest"
-    is_running = is_container_running(container_name)
-    run_all_apps(is_running)
+    # container_name = "opensecurity/mobile-security-framework-mobsf:latest"
+    # is_running = is_container_running(container_name)
+    run_all_apps(True)
