@@ -27,9 +27,9 @@ def upload_file():
     
     
     return response.text, response.status_code
-@app.route('/api/v1/scan/<hash>', methods=['GET','POST'])
-def scan_file(hash):
-    post_dict = str(f'hash={hash}')
+@app.route('/api/v1/scan', methods=['GET','POST'])
+def scan_file():
+    hash=request.json.get('hash')
     headers = {'Authorization': APIKEY}
     response = requests.post(SERVER + '/api/v1/scan', data={'hash': hash}, headers=headers)
     return response.text, response.status_code

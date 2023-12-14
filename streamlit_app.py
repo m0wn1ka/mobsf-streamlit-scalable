@@ -22,32 +22,32 @@ if st.button("Upload and scan"):
             headers = {'Content-Type': multipart_data.content_type}
             response = requests.post(f'{SERVER_URL}/api/v1/upload', data=multipart_data, headers=headers)
             if response.status_code == 200:
-                
                 resp = json.loads(response.text)
-                st.write("Upload completed successfully."+(uploaded_file.name))
+                st.write("Upload completed successfully...."+uploaded_file.name)
             else:
                 st.write(f"Upload failed: {response.text}")
                 st.stop()
-            # st.write("scaning")
-            # headers = {'Content-Type': 'application/json'}
-            # hash=json.loads(response.text)['hash']
-            # scan_response = requests.get(f'{SERVER_URL}/api/v1/scan/{hash}', headers=headers) 
-            # if scan_response.status_code == 200:
-            #     st.write("scannign is done")
-            # else:
-            #     st.write("scanning fialied")
-            st.write("scanning")
+                # <----------------uploading done------------->
+                # <---------------scanning start--------------->
+            st.write("scaning..."+uploaded_file.name)
+            headers = {'Content-Type': 'application/json'}
+            hash=json.loads(response.text)['hash']
+            url=SERVER_URL+"/api/v1/scan"
+            scan_response = requests.post(url,json={"hash":hash}, headers=headers) 
+            if scan_response.status_code == 200:
+                st.write("scannign is done")
+            else:
+                st.write("scanning fialied")
+                st.stop()
+                # <-----------------------scannignd end------------>
+                # <----------json report start------------>
+            st.write("json report generatioing.."+uploaded_file.name)
             headers = {'Content-Type': 'application/json'}
             hash=json.loads(response.text)['hash']
             st.write("used hash is "+hash)
             url=SERVER_URL+"/api/v1/report_jsonn"
             scan_response = requests.post(url,json={"hash":hash}, headers=headers) 
-            
-            #st.write(scan_response)
-            
             if scan_response.status_code == 200:
-                
-                
                 folder_name = "json_reports"
                 file_name = os.path.join(os.getcwd(), folder_name, f"{uploaded_file.name}_report.json")
 
@@ -57,6 +57,7 @@ if st.button("Upload and scan"):
                 with open(file_name, "w") as out_file:
                     out_file.write(scan_response.text)
                     st.write("done writntng to file")
+            # <-------scanning and savings end--------------->
                 
                 
               
