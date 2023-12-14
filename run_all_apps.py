@@ -54,6 +54,6 @@ def is_container_running(container_name: str):
 
 
 if __name__ == '__main__':
-    # container_name = "opensecurity/mobile-security-framework-mobsf:latest"
-    # is_running = is_container_running(container_name)
-    run_all_apps(True)
+    container_name = "opensecurity/mobile-security-framework-mobsf:latest"
+    is_running = is_container_running(container_name)
+    run_all_apps(is_running)
