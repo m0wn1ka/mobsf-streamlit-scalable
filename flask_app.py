@@ -4,7 +4,10 @@ import requests
 import json
 import fetch_api_key
 
+
+from flask_cors import CORS
 app = Flask(__name__)
+# CORS(app, resources={r"/*": {"origins": "http://localhost:9999"}})  # Django app
 
 SERVER = "http://127.0.0.1:9999"
 APIKEY = fetch_api_key.fetch_api()
@@ -46,4 +49,4 @@ def json_report():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="127.0.0.1", port=8000, debug=True)
